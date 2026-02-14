@@ -9,7 +9,14 @@ The website is deployed using GitHub Pages and is accessible at:
 
 ## 🚀 Deployment
 
-This website is automatically deployed to GitHub Pages using GitHub Actions whenever changes are pushed to the main branch or the copilot/deploy-website-online branch.
+This website is set up to be deployed to GitHub Pages using GitHub Actions.
+
+**To enable deployment:**
+1. Go to repository Settings → Pages
+2. Under "Build and deployment", set Source to "GitHub Actions"
+3. The workflow will automatically deploy on push to main or copilot/deploy-website-online branch
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ## 📁 Project Structure
 
