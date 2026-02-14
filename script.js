@@ -48,6 +48,13 @@ let currentCategory = 'all';
 document.addEventListener('DOMContentLoaded', function() {
     displayProducts(products);
     updateCartUI();
+    
+    // Allow search on Enter key
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchProducts();
+        }
+    });
 });
 
 // Display Products
@@ -110,15 +117,6 @@ function searchProducts() {
     );
     displayProducts(filtered);
 }
-
-// Allow search on Enter key
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchProducts();
-        }
-    });
-});
 
 // Add to Cart
 function addToCart(productId, event) {
