@@ -73,7 +73,7 @@ function displayProducts(productList) {
                     <span class="stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}</span>
                     <span>${product.rating} (${product.reviews})</span>
                 </div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                <button class="add-to-cart-btn" onclick="addToCart(${product.id}, event)">Add to Cart</button>
             </div>
         `;
         grid.appendChild(card);
@@ -81,14 +81,16 @@ function displayProducts(productList) {
 }
 
 // Filter by Category
-function filterByCategory(category) {
+function filterByCategory(category, event) {
     currentCategory = category;
     
     // Update active button
     document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.remove('active');
     });
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
     
     // Filter products
     if (category === 'all') {
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add to Cart
-function addToCart(productId) {
+function addToCart(productId, event) {
     const product = products.find(p => p.id === productId);
     const existingItem = cart.find(item => item.id === productId);
     
@@ -132,14 +134,16 @@ function addToCart(productId) {
     updateCartUI();
     
     // Show brief animation/feedback
-    const btn = event.target;
-    const originalText = btn.textContent;
-    btn.textContent = 'Added! ✓';
-    btn.style.background = '#4CAF50';
-    setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-    }, 1000);
+    if (event && event.target) {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Added! ✓';
+        btn.style.background = '#4CAF50';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+        }, 1000);
+    }
 }
 
 // Remove from Cart
@@ -253,7 +257,7 @@ function showProductDetails(productId) {
                 <li>✓ Premium Quality</li>
                 <li>✓ Customer Support 24/7</li>
             </ul>
-            <button class="add-to-cart-btn" onclick="addToCart(${product.id}); closeModal();">Add to Cart</button>
+            <button class="add-to-cart-btn" onclick="addToCart(${product.id}, event); closeModal();">Add to Cart</button>
         </div>
     `;
     
@@ -269,7 +273,7 @@ function closeModal() {
 // Close modal when clicking outside
 window.onclick = function(event) {
     const modal = document.getElementById('productModal');
-    if (event.target == modal) {
+    if (event.target === modal) {
         closeModal();
     }
 }
